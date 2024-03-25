@@ -8,11 +8,12 @@ const indexDao = require("../dao/indexDao");
 //예시 학생 테이블 조회
 exports.readStudents = async function(req, res) {
  const studentName = req.query; //포스트맨으로 get 방식으로 studentName
+ //const { studentIdx } = req.params; // routes 에서 변경된 부분 수정
 
  try {
     const connection = await pool.getConnection(async (conn) => conn);
     try {
-      const [rows] = await indexDao.selectStudents(connection);
+      const [rows] = await indexDao.selectStudents(connection, studentName); //기존 스튜던트 네임 부분 커밋
 
       return res.send({
         result: rows,
