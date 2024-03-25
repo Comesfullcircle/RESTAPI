@@ -1,10 +1,9 @@
 const { pool } = require("../../config/database");
 
 //예시 학생 테이블 조회
-exports.selectStudents =  async function (connection, studentName) {
-  const selectAllStudentsQuery = `SELECT * FROM Students;`;
-  const selectStudentByNameQuery = 'SELECT * FROM Students where studentName = ?;';
-  const Params = [studentName];
+exports.selectStudents =  async function (connection, studentIdx) {
+  const selectAllStudentsQuery = 'SELECT * FROM Students where studentIdx = ?;';
+  const Params = [studentIdx];
 
   let Query;
   //밑에 if 문과 동일

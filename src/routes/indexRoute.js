@@ -7,5 +7,5 @@ module.exports = function (app) {
  // app.get("/dummy", index.example);
 
   //예시 학생 테이블 조회
-  app.get("/students", index.readStudents); -> indexController 가서 학생 테이블 조회 생성
+  app.get("/students/:studentIdx", index.readStudents); //-> indexController 가서 학생 테이블 조회 생성, /:studentIdx pathvariable 생성
 };

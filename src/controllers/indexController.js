@@ -13,7 +13,7 @@ exports.readStudents = async function(req, res) {
  try {
     const connection = await pool.getConnection(async (conn) => conn);
     try {
-      const [rows] = await indexDao.selectStudents(connection, studentName); //기존 스튜던트 네임 부분 커밋
+      const [rows] = await indexDao.selectStudents(connection, studentIdx);
 
       return res.send({
         result: rows,
