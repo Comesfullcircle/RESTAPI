@@ -1,5 +1,16 @@
 const { pool } = require("../../config/database");
 
+exports.deleteStudents = async function (connection,studentIdx)
+{
+   const Query = `update Students set status = "D" where studentIdx = ?;`;
+   const Params = [studentIdx];
+
+    const rows = await connection.query(Query, Params);
+
+    return rows;
+};
+
+
 exports.updateStudents = async function (
     connection,
     studentIdx,
@@ -18,7 +29,7 @@ exports.updateStudents = async function (
 
 
 exports.isValidStudentIdx = async function (connection) {
-  const Query = 'SELECT * FROM Students where studentIdx = ?;';
+  const Query = 'SELECT * FROM Students where studentIdx = ? and status = 'A';';
   const Params = [studentIdx];
 
   const rows = await connection.query(Query, Params);

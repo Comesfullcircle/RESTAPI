@@ -5,6 +5,45 @@ const secret = require("../../config/secret");
 
 const indexDao = require("../dao/indexDao");
 
+//학생 삭제
+exports.deleteStudent = async function(req, res) {
+ const { studentIdx } = req.params;
+
+ try {
+    const connection = await pool.getConnection(async (conn) => conn);
+    try {
+        const isValidStudentIdx = await indexDao.isValidStudentIdx(
+           connection,
+           studentIdx
+        );
+        if (!isValidStudentIdx){
+          return res.send({
+            isSuccess: false,
+            code: 410, // 요청 실패시 400번대 코드
+            message: "유효한 학생 인덱스가 아닙니다.",
+          });
+       }
+
+       const [rows] = await indexDao.deleteStudent(connection, studentIdx);
+
+       return res.send({
+         isSuccess: true,
+         code: 200, //요청 실패시 400번대 코드
+         message: "학생 삭제 성공",
+       });
+    } catch (err) {
+      logger.error('deleteStudent Query error\n: ${JSON.stringify(err)}');
+      return false;
+    } finally {
+      connection.release();
+    }
+ } catch (err) {
+   logger.error('example DB Connection error\n: ${JSON.stringify(err)}');
+    return false;
+ }
+};
+
+
 //학생 업데이트
 exports.updateStudent = async function(req, res) {
  const { studentName, major, birth, address } = req.body;

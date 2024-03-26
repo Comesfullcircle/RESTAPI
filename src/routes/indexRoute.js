@@ -12,4 +12,6 @@ module.exports = function (app) {
   app.post("/students", index.createStudent);
   // 학생 업데이트
   app.patch("/students/:studentIdx", index.updateStudent);
+  // 학생 삭제
+  app.delete("/students/:studentIdx", index.deleteStudent);
 };
