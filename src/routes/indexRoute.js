@@ -10,4 +10,6 @@ module.exports = function (app) {
   app.get("/students/:studentIdx", index.readStudents); //-> indexController 가서 학생 테이블 조회 생성, /:studentIdx pathvariable 생성
   // 학생 생성
   app.post("/students", index.createStudent);
+  // 학생 업데이트
+  app.patch("/students/:studentIdx", index.updateStudent);
 };
